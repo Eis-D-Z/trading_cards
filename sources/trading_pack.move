@@ -172,7 +172,4 @@ module trading_cards::trading_pack {
         let TradingPack{id, tier: _, season: _} = pack;
         object::delete(id);
     }
-
-
-
 }

@@ -4,7 +4,7 @@ module trading_cards::admin {
     use sui::tx_context::{Self, TxContext};
 
 
-    // this will be a unique object that should be in a multi-sig address
+    // Only one instance of this will be created
     struct AdminCap has key, store{
         id: UID
     }
@@ -12,5 +12,11 @@ module trading_cards::admin {
     fun init(ctx: &mut TxContext) {
         let cap = AdminCap{id: object::new(ctx)};
         transfer::public_transfer(cap, tx_context::sender(ctx));
+    }
+
+    // Allow the cap to be burned when project finishes the lifecycle.
+    public fun burn(cap: AdminCap) {
+        let AdminCap {id} = cap;
+        object::delete(id);
     }
 }

@@ -13,7 +13,7 @@ const aidrop = async (addresses: string[], amount: number = 1) => {
 
 // User part
 
-const unwrap = async (id: string, user: string) => {
+const unwrap = async (id: string, user: string, walletSignAndExecute) => {
   const kioskClient = new KioskClient({
     client,
     network: constants.network as Network,
@@ -22,5 +22,5 @@ const unwrap = async (id: string, user: string) => {
   // Here we assume that the user has only one kiosk
   // If there are more than one kiosk, we should check the contents of each kiosk
   const tx = unwrapAirdrop(id, kioskIds[0], kioskOwnerCaps[0].objectId, constants.transferPolicy);
-  await signAndExecute(tx);
+  return await walletSignAndExecute(tx);
 };

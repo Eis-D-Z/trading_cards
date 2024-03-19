@@ -64,7 +64,7 @@ module trading_cards::trading_pack {
 
     // Admin-only funs
 
-    /// Allow admin to give mint privileges.s
+    /// Allow admin to give mint privileges.
     public fun mint_cap(_: &AdminCap, recipient: address, ctx: &mut TxContext) {
         let cap = MintCap {
             id: object::new(ctx)
@@ -90,7 +90,7 @@ module trading_cards::trading_pack {
         }
     }
 
-    /// Convenience function where we mint and put on sale directly.
+    /// Put TradingPack's for sale.
     public fun place_and_list_to_kiosk(
         _: &MintCap,
         central: &mut Central,
@@ -177,5 +177,14 @@ module trading_cards::trading_pack {
         // here we just burn the pack, the full solution would mint some random cards
         let TradingPack{id, tier: _, season: _} = pack;
         object::delete(id);
+    }
+
+
+    // Test helpes
+
+    #[test_only]
+    public fun init_for_test(ctx: &mut TxContext) {
+        let witness = TRADING_PACK {};
+        init(witness, ctx);
     }
 }

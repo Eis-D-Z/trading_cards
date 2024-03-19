@@ -19,4 +19,9 @@ module trading_cards::admin {
         let AdminCap {id} = cap;
         object::delete(id);
     }
+
+    #[test_only]
+    public fun init_for_test(ctx: &mut TxContext) {
+        init(ctx);
+    }
 }
